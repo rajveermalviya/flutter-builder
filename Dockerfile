@@ -9,7 +9,7 @@ RUN echo -e "[main]\nmax_parallel_downloads=20\n" | sudo tee /etc/dnf/dnf.conf \
     && curl -LO https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip \
     && unzip commandlinetools-linux-7302050_latest.zip -d /tmp \
     && mkdir -p /sdk/android_sdk/cmdline-tools/latest \
-    && mv /tmp/cmdline-tools/* android_sdk/cmdline-tools/latest/ \
+    && mv /tmp/cmdline-tools/* /sdk/android_sdk/cmdline-tools/latest/ \
     && rm -rf /tmp \
     && rm commandlinetools-linux-7302050_latest.zip \
     && yes | /sdk/android_sdk/cmdline-tools/latest/bin/sdkmanager --licenses \
