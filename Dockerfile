@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM docker.io/library/fedora:34
 ENV JAVA_HOME=/usr/lib/jvm/java-11
 ENV ANDROID_SDK_ROOT=/sdk/android_sdk
 RUN echo -e "[main]\nmax_parallel_downloads=20\n" | sudo tee /etc/dnf/dnf.conf \
@@ -14,4 +14,5 @@ RUN echo -e "[main]\nmax_parallel_downloads=20\n" | sudo tee /etc/dnf/dnf.conf \
     && yes | /sdk/android_sdk/cmdline-tools/latest/bin/sdkmanager --licenses \
     && /sdk/android_sdk/cmdline-tools/latest/bin/sdkmanager --update \
     && git clone https://github.com/flutter/flutter.git -b stable /sdk/flutter \
-    && /sdk/flutter/bin/flutter doctor -v
+    && /sdk/flutter/bin/flutter upgrade
+ENV PATH="/sdk/flutter/bin:${PATH}"
