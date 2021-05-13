@@ -4,7 +4,7 @@ ENV ANDROID_SDK_ROOT=/sdk/android_sdk
 RUN echo -e "[main]\nmax_parallel_downloads=20\n" | sudo tee /etc/dnf/dnf.conf \
     && cat /etc/dnf/dnf.conf \
     && sudo dnf update -y \
-    && sudo dnf install -y curl unzip git java-11-openjdk-devel \
+    && sudo dnf install -y find curl unzip git java-11-openjdk-devel \
     && git clone https://github.com/flutter/flutter.git /sdk/flutter \
     && curl -LO https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip \
     && unzip commandlinetools-linux-7302050_latest.zip -d /tmp \
