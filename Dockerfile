@@ -19,5 +19,5 @@ RUN sdkmanager "build-tools;30.0.3" "patcher;v4" "platform-tools" "platforms;and
 
 RUN git clone https://github.com/flutter/flutter.git -b stable /home/flutterbuilder/sdk/flutter
 ENV PATH "$PATH:/home/flutterbuilder/sdk/flutter/bin"
-RUN flutter precache
+RUN flutter precache && flutter config --no-analytics
 ENTRYPOINT [ "flutter" ]
