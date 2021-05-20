@@ -1,16 +1,16 @@
 FROM docker.io/library/ubuntu:21.04
-ARG FLUTTER_VERSION
+ARG FLUTTER_CHANNEL
 
-RUN apt update && apt install -y curl git unzip
+RUN apt update && apt install -y curl git unzip && useradd -ms /bin/bash flutterbuilder
 
-RUN useradd -ms /bin/bash flutterbuilder
 USER flutterbuilder
 WORKDIR /home/flutterbuilder
 
-RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_VERSION} /home/flutterbuilder/sdk/flutter
 ENV PATH "$PATH:/home/flutterbuilder/sdk/flutter/bin"
-RUN flutter config --no-analytics --enable-web --no-enable-linux-desktop --no-enable-macos-desktop \
-    --no-enable-windows-desktop --no-enable-android --no-enable-ios --no-enable-fuchsia \
+
+RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_CHANNEL} /home/flutterbuilder/sdk/flutter \
+    && flutter config --no-analytics --enable-web --no-enable-linux-desktop --no-enable-macos-desktop --no-enable-windows-desktop --no-enable-android --no-enable-ios --no-enable-fuchsia \
+    && flutter channel ${FLUTTER_CHANNEL} && flutter upgrade \
     && flutter precache \
     && flutter --version
 ENTRYPOINT [ "flutter" ]

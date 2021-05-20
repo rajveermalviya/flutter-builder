@@ -1,27 +1,27 @@
 FROM docker.io/library/ubuntu:21.04
-ARG FLUTTER_VERSION
+ARG FLUTTER_CHANNEL
 
-RUN apt update && apt install -y curl git unzip openjdk-11-jdk
+RUN apt update && apt install -y curl git unzip openjdk-11-jdk && useradd -ms /bin/bash flutterbuilder
 
-RUN useradd -ms /bin/bash flutterbuilder
 USER flutterbuilder
 WORKDIR /home/flutterbuilder
 
-RUN mkdir -p sdk/android_sdk/cmdline-tools/latest
 ENV ANDROID_SDK_ROOT /home/flutterbuilder/sdk/android_sdk
-RUN mkdir -p .android && touch .android/repositories.cfg
-
-RUN curl -LO https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip
-RUN unzip commandlinetools-linux-7302050_latest.zip && rm commandlinetools-linux-7302050_latest.zip
-RUN mv cmdline-tools/* ${ANDROID_SDK_ROOT}/cmdline-tools/latest/ && rm -r cmdline-tools/
 ENV PATH "$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/:${ANDROID_SDK_ROOT}/platform-tools"
-RUN yes | sdkmanager --licenses
-RUN sdkmanager "build-tools;30.0.3" "patcher;v4" "platform-tools" "platforms;android-30"
 
-RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_VERSION} /home/flutterbuilder/sdk/flutter
+RUN mkdir -p sdk/android_sdk/cmdline-tools/latest \
+    && mkdir -p .android && touch .android/repositories.cfg \
+    && curl -LO https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip \
+    && unzip commandlinetools-linux-7302050_latest.zip && rm commandlinetools-linux-7302050_latest.zip \
+    && mv cmdline-tools/* ${ANDROID_SDK_ROOT}/cmdline-tools/latest/ && rm -r cmdline-tools/ \
+    && yes | sdkmanager --licenses \
+    && sdkmanager "build-tools;30.0.3" "patcher;v4" "platform-tools" "platforms;android-30"
+
 ENV PATH "$PATH:/home/flutterbuilder/sdk/flutter/bin"
-RUN flutter config --no-analytics --enable-android --no-enable-web --no-enable-linux-desktop --no-enable-macos-desktop \
-    --no-enable-windows-desktop --no-enable-ios --no-enable-fuchsia \
+
+RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_CHANNEL} /home/flutterbuilder/sdk/flutter \
+    && flutter config --no-analytics --enable-android --no-enable-web --no-enable-linux-desktop --no-enable-macos-desktop --no-enable-windows-desktop --no-enable-ios --no-enable-fuchsia \
+    && flutter channel ${FLUTTER_CHANNEL} && flutter upgrade \
     && flutter precache \
     && flutter --version
 ENTRYPOINT [ "flutter" ]

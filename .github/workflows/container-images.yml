@@ -1,6 +1,6 @@
 on:
-  push:
-    branches: [main]
+  schedule:
+    - 0 0 * * 0 # weekly
 
 jobs:
   build_and_push_android:
@@ -23,9 +23,9 @@ jobs:
           file: Dockerfile.android
           push: true
           build-args: |
-            FLUTTER_VERSION=2.2.0
+            FLUTTER_CHANNEL=stable
           tags: |
-            ghcr.io/${{ github.repository }}-android:2.2.0
+            ghcr.io/${{ github.repository }}-android:latest
 
   build_and_push_web:
     runs-on: ubuntu-latest
@@ -47,7 +47,6 @@ jobs:
           file: Dockerfile.web
           push: true
           build-args: |
-            FLUTTER_VERSION=2.2.0
+            FLUTTER_CHANNEL=beta
           tags: |
-            ghcr.io/${{ github.repository }}-web:${{ github.sha }}
             ghcr.io/${{ github.repository }}-web:latest
