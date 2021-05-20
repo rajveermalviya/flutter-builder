@@ -1,4 +1,5 @@
 FROM docker.io/library/ubuntu:21.04
+ARG FLUTTER_VERSION
 
 RUN apt update && apt install -y curl git unzip
 
@@ -6,7 +7,7 @@ RUN useradd -ms /bin/bash flutterbuilder
 USER flutterbuilder
 WORKDIR /home/flutterbuilder
 
-RUN git clone https://github.com/flutter/flutter.git -b beta /home/flutterbuilder/sdk/flutter
+RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_VERSION} /home/flutterbuilder/sdk/flutter
 ENV PATH "$PATH:/home/flutterbuilder/sdk/flutter/bin"
 RUN flutter config --no-analytics --enable-web --no-enable-linux-desktop --no-enable-macos-desktop \
     --no-enable-windows-desktop --no-enable-android --no-enable-ios --no-enable-fuchsia \

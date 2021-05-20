@@ -1,5 +1,3 @@
-name: Container Image
-
 on:
   push:
     branches: [main]
@@ -24,9 +22,10 @@ jobs:
         with:
           file: Dockerfile.android
           push: true
+          build-args: |
+            FLUTTER_VERSION=2.2.0
           tags: |
-            ghcr.io/${{ github.repository }}-android:${{ github.sha }}
-            ghcr.io/${{ github.repository }}-android:latest
+            ghcr.io/${{ github.repository }}-android:2.2.0
 
   build_and_push_web:
     runs-on: ubuntu-latest
@@ -47,6 +46,8 @@ jobs:
         with:
           file: Dockerfile.web
           push: true
+          build-args: |
+            FLUTTER_VERSION=2.2.0
           tags: |
             ghcr.io/${{ github.repository }}-web:${{ github.sha }}
             ghcr.io/${{ github.repository }}-web:latest
