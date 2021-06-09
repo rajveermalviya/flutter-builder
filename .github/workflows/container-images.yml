@@ -50,6 +50,6 @@ jobs:
           file: Dockerfile.web
           push: true
           build-args: |
-            FLUTTER_CHANNEL=beta
+            FLUTTER_CHANNEL=dev
           tags: |
             ghcr.io/${{ github.repository }}-web:latest
