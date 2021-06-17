@@ -28,7 +28,7 @@ jobs:
           build-args: |
             FLUTTER_CHANNEL=stable
           tags: |
-            ghcr.io/${{ github.repository }}-android:latest
+            ghcr.io/rajveermalviya/flutter-builder-android:latest
 
   build_and_push_web:
     runs-on: ubuntu-latest
@@ -52,4 +52,4 @@ jobs:
           build-args: |
             FLUTTER_CHANNEL=dev
           tags: |
-            ghcr.io/${{ github.repository }}-web:latest
+            ghcr.io/rajveermalviya/flutter-builder-web:latest
