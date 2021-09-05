@@ -3,7 +3,7 @@ ARG FLUTTER_CHANNEL
 
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y curl git unzip openjdk-16-jdk \
+    && apt install -y curl git unzip openjdk-11-jdk \
     && useradd -ms /bin/bash flutterbuilder
 
 USER flutterbuilder
