@@ -1,9 +1,8 @@
-FROM docker.io/library/ubuntu:21.04
+FROM docker.io/library/fedora:34
 ARG FLUTTER_CHANNEL
 
-RUN apt update \
-    && apt upgrade -y \
-    && apt install -y curl git unzip \
+RUN dnf update --refresh -y \
+    && dnf install curl git unzip findutils which -y \
     && useradd -ms /bin/bash flutterbuilder
 
 USER flutterbuilder
