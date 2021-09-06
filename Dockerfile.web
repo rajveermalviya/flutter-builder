@@ -14,7 +14,6 @@ ENV PATH "$PATH:/home/flutterbuilder/sdk/flutter/bin"
 RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_CHANNEL} /home/flutterbuilder/sdk/flutter \
     && flutter config --no-analytics --enable-web --no-enable-linux-desktop --no-enable-macos-desktop --no-enable-windows-desktop --no-enable-android --no-enable-ios --no-enable-fuchsia \
     && flutter channel ${FLUTTER_CHANNEL} && flutter upgrade \
-    && flutter precache \
     && flutter --version \
     # create a temporary project & build it to trigger dependency downloads
     && flutter create --platforms web tmp \
