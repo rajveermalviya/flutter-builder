@@ -29,7 +29,7 @@ RUN git clone https://github.com/flutter/flutter.git -b ${FLUTTER_CHANNEL} /home
     && flutter upgrade \
     && flutter --version \
     # create a temporary project & build it to trigger dependency downloads
-    && flutter create --platforms android tmp \
+    && flutter create -t skeleton --platforms android tmp \
     && cd tmp \
     && flutter build apk --debug \
     && cd .. \
