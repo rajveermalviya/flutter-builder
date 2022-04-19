@@ -1,4 +1,4 @@
-FROM docker.io/library/fedora:34
+FROM docker.io/library/fedora:36
 ARG FLUTTER_CHANNEL
 
 RUN dnf update --refresh -y \
